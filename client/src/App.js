@@ -20,14 +20,16 @@ function App() {
     return (
         <Routes>
             <Route path="/" element={<Layout />}>
-                <Route index element={<ArticlesPage key={"default"} />} />
-                {/* <Route index element={<ArticlePage />} /> */}
-                <Route path={'/page/inversiones'} element={<ArticlesPage key={"inversiones"} tag="inversiones" />} />
-                {/* <Route path={'/finanzas'} element={<FinanzasPage />} />
-                <Route path={'/negocios'} element={<NegociosPage />} />
-                <Route path={'/ecomomia'} element={<EcommiaPage />} />
-                <Route path={'/bancario'} element={<BancarioPage />} /> */}
-                <Route path={'/post/:id'} element={<ArticlePage />} />
+                <Route index element={<ArticlesPage key={"default"}/>} />
+                <Route path="/page">
+                    {/* <Route index element={<ArticlesPage key={"default"}/>} /> */}
+                    <Route path={'inversiones'} element={<ArticlesPage key={"inversiones"} tag="inversiones" />} />
+                    <Route path={'finanzas'} element={<ArticlesPage key={"finanzas"} tag="finanzas" />} />
+                    <Route path={'negocios'} element={<ArticlesPage key={"negocios"} tag="negocios" />} />
+                    <Route path={'ecomomia'} element={<ArticlesPage key={"ecomomia"} tag="ecomomia" />} />
+                    <Route path={'bancario'} element={<ArticlesPage key={"bancario"} tag="bancario" />} />
+                </Route>
+                <Route path={'post/:id'} element={<ArticlePage />} />
             </Route>
         </Routes>
     );

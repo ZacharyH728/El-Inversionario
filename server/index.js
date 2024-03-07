@@ -28,7 +28,7 @@ app.get("/page/:tag", async (req, res) => {
     }
 })
 
-app.get("/post/:id", async (req, res) => {
+app.get("/article/:id", async (req, res) => {
     const { id } = req.params;
     // console.log(await Article.findById(id))
     const article = await Article.findById(id);

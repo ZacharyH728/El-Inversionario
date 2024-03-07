@@ -26,7 +26,7 @@ export default function ArticlesPage({ tag }) {
                 </div>
                 <div className="content">
                     <div className="postHeader">
-                        <h1>Articles Header</h1>
+                        <h1>{!tag ? "Latest Articles" : tag.charAt(0).toUpperCase() + tag.slice(1)}</h1>
                     </div>
                     <div className="posts">
                         {articles.length > 0 && articles.map(article => {

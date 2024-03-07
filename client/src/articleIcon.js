@@ -4,11 +4,8 @@ export default function ArticleIcon({ article, _id, authors, editors, date_creat
     const tags = article.tags.map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' > ');
     return (
         < div className="post">
-            <div className="image">
-                <Link className="link" to={`/post/${_id}`} >
-                    {/* <img src={article.photos}></img> */}
-                </Link>
-            </div>
+            <Link className="image" to={`/post/${_id}`} >
+            </Link>
             <div className="text">
                 <Link className="link" to={`/post/${_id}`} >
                     <h2>{article.title}</h2>

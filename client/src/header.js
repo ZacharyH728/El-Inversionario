@@ -1,16 +1,22 @@
 import { Link } from "react-router-dom";
+import logo from './images/logo.svg'
 
 export default function Header() {
     return (
         <header>
             <nav>
-                <Link to={"/"} className="logo">El Inversionario</Link>
+                <div className="logo">
+                    <svg viewBox="0 0 1 1">
+                        <image href={logo} width="1" height="1"></image>
+                    </svg>
+                    <Link to={"/"}>El Inversionario</Link>
+                </div>
                 <div className="links">
                     <Link to={"/page/inversiones"}>Inversiones</Link>
-                    <Link to={"/finanzas"}>Finanzas</Link>
-                    <Link to={"/negocios"}>Negocios</Link>
-                    <Link to={"/ecomomia"}>Ecomomia</Link>
-                    <Link to={"/bancario"}>Bancario</Link>
+                    <Link to={"/page/finanzas"}>Finanzas</Link>
+                    <Link to={"/page/negocios"}>Negocios</Link>
+                    <Link to={"/page/ecomomia"}>Ecomomia</Link>
+                    <Link to={"/page/bancario"}>Bancario</Link>
                 </div>
             </nav>
         </header>
