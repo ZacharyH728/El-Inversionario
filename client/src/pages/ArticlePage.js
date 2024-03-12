@@ -27,7 +27,16 @@ export default function ArticlePage() {
                 <div className="tableOfContents">
                     <h2 key={"tableOfContents"}>Table of Contents</h2>
                     <ul>
-                        {Array.from(document.getElementsByTagName('h2')).map(element => { if (element.innerHTML === "Table of Contents") { return "" } else { return (<a href={`#${element.innerHTML}`}><li key={element.innerHTML}>{element.innerHTML}</li></a>) } })}
+                        {Array.from(domParser.parseFromString(articleInfo.article.body, "text/html")
+                            .body.getElementsByTagName("*"))
+                            .map(element => {
+                                if (element.tagName === "H2") {
+                                    return (<a href={`#${element.innerHTML}`}><li key={element.innerHTML}>{element.innerHTML}</li></a>)
+                                } else {
+                                    return ""
+                                }
+                            })}
+                        {/* {Array.from(document.getElementsByTagName('h2')).map(element => { if (element.innerHTML === "Table of Contents") { return "" } else { return (<a href={`#${element.innerHTML}`}><li key={element.innerHTML}>{element.innerHTML}</li></a>) } })} */}
                     </ul>
                 </div>
                 <div className="ad">
@@ -39,13 +48,13 @@ export default function ArticlePage() {
                     {/* <h3 className="tag">{articleInfo.article.tags.join(' > ')}</h3> */}
                     <h3 className="tags">{articleInfo.article.tags.length > 0 && articleInfo.article.tags.map((tag, idx) => {
                         return (
-                        <div key={tag} className="tag">
-                            <Link to={`/page/${tag}`} ><h3>{tag.charAt(0).toUpperCase() + tag.slice(1)}</h3></Link> 
-                            <h3>{idx === articleInfo.article.tags.length - 1 ? "" : ">"}</h3>
-                        </div>)
+                            <div key={tag} className="tag">
+                                <Link to={`/page/${tag}`} ><h3>{tag.charAt(0).toUpperCase() + tag.slice(1)}</h3></Link>
+                                <h3>{idx === articleInfo.article.tags.length - 1 ? "" : ">"}</h3>
+                            </div>)
                     })}</h3>
                     <h1 className="title">{articleInfo.article.title}</h1>
-                    <div className="line"/>
+                    <div className="line" />
                     <div className="subInfo">
                         <div className="people">
                             <div className="authors">
@@ -62,7 +71,7 @@ export default function ArticlePage() {
                             </div>
                         </div>
                     </div>
-                    <div className="line"/>
+                    <div className="line" />
                     <div className="dateCreated">
                         <h3>{new Date(articleInfo.date_created).toDateString()}</h3>
                     </div>
@@ -80,7 +89,7 @@ export default function ArticlePage() {
                             .body.getElementsByTagName("*"))
                         // .map(item => console.log(item.outerHTML))
                         .map(item => {
-                            if(parse(item.outerHTML).type === "li"){
+                            if (parse(item.outerHTML).type === "li") {
                                 return ""
                             }
                             return parse(item.outerHTML,
@@ -92,7 +101,7 @@ export default function ArticlePage() {
                                             // item.id = item.children[0].data
                                             item.attribs.id = item.children[0].data
                                             return item;
-    
+
                                             // return React.createElement(
                                             //     'h2',
                                             //     { id: item.children[0].data, dangerouslySetInnerHTML: { __html: item.children[0] } }
@@ -113,7 +122,7 @@ export default function ArticlePage() {
                         //                     // item.id = item.children[0].data
                         //                     item.attribs.id = item.children[0].data
                         //                     return item;
-    
+
                         //                     // return React.createElement(
                         //                     //     'h2',
                         //                     //     { id: item.children[0].data, dangerouslySetInnerHTML: { __html: item.children[0] } }
