@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import AritcleGrid from "../components/articleGrid";
+import ArticleLargeGrid from "../components/articleLargeGrid";
 
 export default function ArticlesPage({ tag }) {
     // const [articles, setArticles] = useState([]);
@@ -25,7 +26,7 @@ export default function ArticlesPage({ tag }) {
                     AD
                 </div>
                 <div className="content">
-                    < AritcleGrid tag="" />
+                    < ArticleLargeGrid tag="" />
                     < AritcleGrid tag="finanzas" />
                 </div>
             </div>

@@ -1,4 +1,4 @@
-import ArticleIcon from "../components/articleIcon";
+import ArticleLargeIcon from "../components/articleLargeIcon";
 import { useEffect, useState } from "react"
 
 
@@ -21,9 +21,9 @@ export default function AritcleLargeGrid({ tag }) {
             <div className="postHeader">
                 <h1>{!tag ? "Latest Articles" : tag.charAt(0).toUpperCase() + tag.slice(1)}</h1>
             </div>
-            <div className="posts">
-                {articles.length > 0 && articles.map(article => {
-                    return <ArticleIcon key={article._id} {...article} />;
+            <div className="postsLarge">
+                {articles.length > 0 && articles.slice(0, 4).map(article => {
+                    return <ArticleLargeIcon key={article._id} {...article} />;
                 })}
             </div>
         </div>

@@ -95,6 +95,20 @@ div.posts {
     gap: 30px;
 }
 
+div.postsLarge {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+}
+
+div.postLarge {
+    height: 30vw;
+    display: grid;
+    grid-template-rows: 0.1fr 0.9fr;
+    gap: 5px;
+    text-decoration: none;
+}
+
 div.postHeader h1 {
     margin-bottom: 20px;
     font-size: 2.5rem;
@@ -116,12 +130,19 @@ div.post .image {
     background-color: black;
 }
 
+div.postLarge .image {
+    max-width: 100%;
+    max-height: 100%;
+    background-color: black;
+}
+
 div.left {
     display: flex;
     flex-direction: column;
 }
 
-div.post a {
+div.post a,
+div.postLarge a {
     text-decoration: none;
 }
 
@@ -133,7 +154,18 @@ div.post div.text h2 {
     color: black;
 }
 
-div.post div.text p {
+div.postLarge div.text h2 {
+    margin: 0;
+    font-size: 1.6rem;
+    text-decoration: none;
+    color: black;
+}
+
+div.postLarge .tag {
+    margin: 10px 0;
+}
+
+div.post div.postLarge div.text p {
     text-decoration: none;
 }
 
