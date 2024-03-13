@@ -1,19 +1,19 @@
 import { useEffect, useState } from "react"
-import ArticleIcon from "../articleIcon";
+import AritcleGrid from "../components/articleGrid";
 
 export default function ArticlesPage({ tag }) {
-    const [articles, setArticles] = useState([]);
+    // const [articles, setArticles] = useState([]);
 
-    tag = tag ? tag : ""
+    // tag = tag ? tag : ""
 
-    useEffect(() => {
-        fetch(`http://localhost:4000/page/${tag}`)
-            .then(response => {
-                response.json().then(articles => {
-                    setArticles(articles)
-                });
-            });
-    }, []);
+    // useEffect(() => {
+    //     fetch(`http://localhost:4000/page/${tag}`)
+    //         .then(response => {
+    //             response.json().then(articles => {
+    //                 setArticles(articles)
+    //             });
+    //         });
+    // }, []);
 
     return (
         <div className="content">
@@ -25,14 +25,8 @@ export default function ArticlesPage({ tag }) {
                     AD
                 </div>
                 <div className="content">
-                    <div className="postHeader">
-                        <h1>{!tag ? "Latest Articles" : tag.charAt(0).toUpperCase() + tag.slice(1)}</h1>
-                    </div>
-                    <div className="posts">
-                        {articles.length > 0 && articles.map(article => {
-                            return <ArticleIcon key={article._id} {...article} />;
-                        })}
-                    </div>
+                    < AritcleGrid tag="" />
+                    < AritcleGrid tag="finanzas" />
                 </div>
             </div>
         </div>

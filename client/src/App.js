@@ -1,7 +1,7 @@
 import './App.css';
 
-import Post from "./articleIcon.js"
-import Header from "./header.js"
+import Post from "./components/articleIcon.js"
+import Header from "./components/header.js"
 import ArticlesPage from './pages/ArticlesPage.js';
 import ArticlePage from './pages/ArticlePage.js'
 import NegociosPage from './pages/NegociosPage.js'
@@ -14,13 +14,13 @@ import FinanzasPage from './pages/FinanzasPage.js';
 
 
 import { Route, Routes } from "react-router-dom"
-import Layout from './layout.js';
+import Layout from './components/layout.js';
 
 function App() {
     return (
         <Routes>
             <Route path="/" element={<Layout />}>
-                <Route index element={<ArticlesPage key={"default"}/>} />
+                <Route index element={<ArticlesPage key={"default"} />} />
                 <Route path="/page">
                     {/* <Route index element={<ArticlesPage key={"default"}/>} /> */}
                     <Route path={'inversiones'} element={<ArticlesPage key={"inversiones"} tag="inversiones" />} />
