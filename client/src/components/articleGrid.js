@@ -7,6 +7,7 @@ export default function AritcleGrid({ header, tag }) {
 
     tag = tag ? tag : ""
 
+
     useEffect(() => {
         fetch(`http://localhost:4000/page/${tag}`)
             .then(response => {

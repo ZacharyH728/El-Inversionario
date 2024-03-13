@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react"
 import AritcleGrid from "../components/articleGrid";
 import ArticleLargeGrid from "../components/articleLargeGrid";
+import AdComponent from "../components/AdComponent";
+import React from 'react';
+import AdSense from 'react-adsense';
 
 export default function ArticlesPage({ tag }) {
     // const [articles, setArticles] = useState([]);
@@ -19,15 +22,25 @@ export default function ArticlesPage({ tag }) {
     return (
         <div className="content">
             <div className="ad">
-                AD
+                <AdSense.Google
+                    client='ca-pub-1354981245585138'
+                    slot='2832115619'
+                    style={{ width: '100%', height: '21vh', float: 'left' }}
+                />
             </div>
             <div className="body">
                 <div className="ad">
-                    AD
+                    <AdSense.Google
+                        client='ca-pub-1354981245585138'
+                        slot='2832115619'
+                        style={{ width: '100%', height: '21vh', float: 'left' }}
+                    // style={{ width: '100%', height: '100%', float: 'left' }}
+                    />
                 </div>
                 <div className="content">
-                    < ArticleLargeGrid tag="" />
-                    < AritcleGrid tag="finanzas" />
+                    {!tag ? < ArticleLargeGrid tag="" /> : ""}
+                    < AritcleGrid tag={tag} />
+
                 </div>
             </div>
         </div>
