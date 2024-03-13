@@ -6,18 +6,19 @@ import React from 'react';
 import AdSense from 'react-adsense';
 
 export default function ArticlesPage({ tag }) {
-    // const [articles, setArticles] = useState([]);
+    const [tags, setTags] = useState()
 
     // tag = tag ? tag : ""
 
-    // useEffect(() => {
-    //     fetch(`http://localhost:4000/page/${tag}`)
-    //         .then(response => {
-    //             response.json().then(articles => {
-    //                 setArticles(articles)
-    //             });
-    //         });
-    // }, []);
+    useEffect(() => {
+        fetch(`http://localhost:4000/tags`)
+            .then(response => {
+                response.json().then(tags => {
+                    setTags(tags)
+                });
+            });
+    }, []);
+
 
     return (
         <div className="content">
@@ -39,8 +40,9 @@ export default function ArticlesPage({ tag }) {
                 </div>
                 <div className="content">
                     {!tag ? < ArticleLargeGrid tag="" /> : ""}
-                    < AritcleGrid tag={tag} />
-
+                    {console.log(tags)}
+                    {!tag && tags ? tags.map(tag => { return < AritcleGrid tag={tag} /> }) : ""}
+                    {tag ? < AritcleGrid tag={tag} /> : ""}
                 </div>
             </div>
         </div>

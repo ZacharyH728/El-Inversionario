@@ -83,6 +83,7 @@ div.ad {
     align-items: center;
     max-width: 100%;
     min-height: 21vh;
+    height: 100%;
     color: red;
     font-weight: bold;
     font-size: 8rem;

@@ -41,4 +41,16 @@ app.get("/article/:id", async (req, res) => {
 
 })
 
+app.get("/tags", async (req, res) => {
+    // const tags = await Article.distinct('article.tags')
+
+    let results = [];
+
+    for (let element of (await Article.find().select('article.tags -_id'))) {
+        results.push(element.article.tags[0]);
+    }
+
+    res.json(results);
+})
+
 app.listen(4000);
