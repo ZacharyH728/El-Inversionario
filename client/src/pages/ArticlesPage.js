@@ -40,7 +40,6 @@ export default function ArticlesPage({ tag }) {
                 </div>
                 <div className="content">
                     {!tag ? < ArticleLargeGrid tag="" /> : ""}
-                    {console.log(tags)}
                     {!tag && tags ? tags.map(tag => { return < AritcleGrid tag={tag} /> }) : ""}
                     {tag ? < AritcleGrid tag={tag} /> : ""}
                 </div>
