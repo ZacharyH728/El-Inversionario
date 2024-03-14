@@ -4,17 +4,12 @@ import Post from "./components/articleIcon.js"
 import Header from "./components/header.js"
 import ArticlesPage from './pages/ArticlesPage.js';
 import ArticlePage from './pages/ArticlePage.js'
-import NegociosPage from './pages/NegociosPage.js'
-import InverstionesPage from './pages/InversionesPage.js';
-import BancarioPage from './pages/BancarioPage.js';
-import EcommiaPage from './pages/EcomomiaPage.js';
-import FinanzasPage from './pages/FinanzasPage.js';
-
 
 
 
 import { Route, Routes } from "react-router-dom"
 import Layout from './components/layout.js';
+import AboutUs from './pages/AboutUs.js';
 
 function App() {
     return (
@@ -29,6 +24,7 @@ function App() {
                     <Route path={'ecomomia'} element={<ArticlesPage key={"ecomomia"} tag="ecomomia" />} />
                     <Route path={'bancario'} element={<ArticlesPage key={"bancario"} tag="bancario" />} />
                     <Route path={'stocks'} element={<ArticlesPage key={"stocks"} tag="stocks" />} />
+                    <Route path={'aboutus'} element={<AboutUs />} />
                 </Route>
                 <Route path={'post/:id'} element={<ArticlePage />} />
             </Route>

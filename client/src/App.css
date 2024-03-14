@@ -25,7 +25,38 @@ img {
     }
 }
 
-nav {
+.link {
+    text-decoration: none;
+}
+
+footer {
+    margin-top: 30px;
+    background-color: var(--primary-color);
+    /* height: 30vh; */
+    padding: 15vh 0;
+    display: flex;
+    /* justify-items    : baseline; */
+    align-items: center;
+    /* align-content: cente r; */
+}
+
+footer nav {
+    display: flex;
+    justify-content: space-around;
+    align-self: flex-end;
+    align-content: center;
+    align-items: center;
+}
+
+footer .link {
+    text-decoration: none;
+}
+
+footer a {
+    color: white;
+}
+
+header nav {
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
@@ -36,7 +67,7 @@ nav {
     box-shadow: 0 18px 17px -20px var(--primary-color);
 }
 
-nav a {
+header nav a {
     text-decoration: none;
     color: var(--primary-color);
     font-family: "Roboto Slab", system-ui;
@@ -111,8 +142,16 @@ div.post.large {
     text-decoration: none;
 }
 
+div.headerLine {
+    margin-top: 20px;
+    width: 100%;
+    height: 5px;
+    background-color: var(--primary-color);
+}
+
 div.postHeader h1 {
     margin-bottom: 20px;
+    margin-top: 5px;
     font-size: 2.5rem;
     color: var(--primary-color);
     font-family: "Roboto Slab", system-ui;
@@ -134,6 +173,7 @@ div.large .image {
     max-width: 100%;
     max-height: 100%;
     background-color: black;
+    border-radius: 15px;
 }
 
 div.left {
@@ -161,8 +201,9 @@ div.post:hover a {
     opacity: 90%;
 }
 
-div.large .tag {
-    margin: 10px 0;
+div.large .tag,
+div.large h3 {
+    margin: 15px 0;
 }
 
 div.post.large div.text p {
@@ -225,8 +266,9 @@ div.info .line {
     height: 3px;
 }
 
-div.centre .image {
+div.centre .image img {
     margin-top: 20px;
+    border-radius: 15px;
 }
 
 div.centre div.ad {
@@ -261,6 +303,16 @@ div.article img {
     width: 100%;
     height: auto;
     object-fit: contain;
+}
+
+div.info .tags {
+    display: flex;
+    gap: 8px;
+}
+
+div.tags div {
+    display: flex;
+    gap: 8px;
 }
 
 h3.tags {

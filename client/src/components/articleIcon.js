@@ -14,7 +14,7 @@ export default function ArticleIcon({ article, _id, authors, editors, date_creat
                     <h3 className="tag">{tags}</h3>
                     <time>{new Date(date_created).toDateString()}</time>
                 </div>
-                <p>{article.summary}</p>
+                {/* <p>{article.summary}</p> */}
             </div>
         </div>
     );

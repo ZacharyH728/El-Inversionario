@@ -9,6 +9,12 @@ export default function ArticleLargeIcon({ article, _id, authors, editors, date_
                     <h2>{article.title}</h2>
                 </Link>
                 <div className="info">
+                    {/* <div className="tags">
+                        {article.tags.length > 0 && article.tags.map((tag, idx) => {
+                            return <div>{idx === article.tags.length - 1 ? <h3>{">"}</h3> : ""
+                            }<Link className="link" to={`/page/${tag}`}><h3 className="tag link" key={tag}>{tag.charAt(0).toUpperCase() + tag.slice(1)}</h3></Link></div>
+                        })}
+                    </div> */}
                     <h3 className="tag">{tags}</h3>
                     <time>{new Date(date_created).toDateString()}</time>
                 </div>

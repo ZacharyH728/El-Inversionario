@@ -1,9 +1,9 @@
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom'
 import logo from '../images/logo.svg'
 
-export default function Header() {
+export default function Footer() {
     return (
-        <header>
+        <footer>
             <nav>
                 <div className="logo">
                     <svg viewBox="0 0 1 1">
@@ -20,6 +20,6 @@ export default function Header() {
                     <Link to={"/page/aboutus"}>About Us</Link>
                 </div>
             </nav>
-        </header>
+        </footer>
     )
 }

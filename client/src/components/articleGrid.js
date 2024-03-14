@@ -20,6 +20,7 @@ export default function AritcleGrid({ header, tag }) {
     return (
         <div>
             <div className="postHeader">
+                <div className="headerLine" ></div>
                 <h1>{!tag ? "Latest Articles" : tag.charAt(0).toUpperCase() + tag.slice(1)}</h1>
             </div>
             <div className="posts small">
