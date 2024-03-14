@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 export default function ArticleLargeIcon({ article, _id, authors, editors, date_created }) {
     const tags = article.tags.map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' > ');
     return (
-        < div className="postLarge">
+        < div className="post large">
             <div className="text">
                 <Link className="link" to={`/post/${_id}`} >
                     <h2>{article.title}</h2>

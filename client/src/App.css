@@ -2,6 +2,7 @@
 
 :root {
     --primary-color: maroon;
+    background-color: rgb(254, 249, 242);
 }
 
 img {
@@ -96,13 +97,13 @@ div.posts {
     gap: 30px;
 }
 
-div.postsLarge {
+div.posts.large {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 30px;
 }
 
-div.postLarge {
+div.post.large {
     height: 30vw;
     display: grid;
     grid-template-rows: 0.1fr 0.9fr;
@@ -118,20 +119,18 @@ div.postHeader h1 {
 }
 
 div.post {
-    max-width: 300px;
-    display: grid;
-    grid-template-rows: 200px 1fr;
     gap: 5px;
     text-decoration: none;
 }
 
-div.post .image {
-    max-width: 100%;
-    max-height: 100%;
-    background-color: black;
+div.post.small {
+    max-width: 300px;
+    display: grid;
+    grid-template-rows: 200px 1fr;
 }
 
-div.postLarge .image {
+div.post .image,
+div.large .image {
     max-width: 100%;
     max-height: 100%;
     background-color: black;
@@ -142,31 +141,31 @@ div.left {
     flex-direction: column;
 }
 
-div.post a,
-div.postLarge a {
+div.post a {
     text-decoration: none;
 }
 
 div.post div.text h2 {
     margin: 0;
-    margin-bottom: 15px;
     font-size: 1.6rem;
     text-decoration: none;
     color: black;
 }
 
-div.postLarge div.text h2 {
-    margin: 0;
-    font-size: 1.6rem;
-    text-decoration: none;
-    color: black;
+div.post:hover .link h2 {
+    color: var(--primary-color);
+    text-decoration: underline;
 }
 
-div.postLarge .tag {
+div.post:hover a {
+    opacity: 90%;
+}
+
+div.large .tag {
     margin: 10px 0;
 }
 
-div.post div.postLarge div.text p {
+div.post.large div.text p {
     text-decoration: none;
 }
 

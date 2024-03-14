@@ -21,7 +21,7 @@ export default function AritcleLargeGrid({ tag }) {
             <div className="postHeader">
                 <h1>{!tag ? "Latest Articles" : tag.charAt(0).toUpperCase() + tag.slice(1)}</h1>
             </div>
-            <div className="postsLarge">
+            <div className="posts large">
                 {articles.length > 0 && articles.slice(0, 4).map(article => {
                     return <ArticleLargeIcon key={article._id} {...article} />;
                 })}

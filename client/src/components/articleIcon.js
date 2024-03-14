@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 export default function ArticleIcon({ article, _id, authors, editors, date_created }) {
     const tags = article.tags.map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' > ');
     return (
-        < div className="post">
+        < div className="post small">
             <Link className="image" to={`/post/${_id}`} >
             </Link>
             <div className="text">
