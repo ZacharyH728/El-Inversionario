@@ -22,17 +22,17 @@ function App() {
             <Route path="/" element={<Layout />}>
                 <Route index element={<ArticlesPage key={"default"} />} />
                 <Route path="/page">
-                    {/* <Route index element={<ArticlesPage key={"default"}/>} /> */}
+                    {/* <Route index element={<ArticlesPage key={"default"} />} /> */}
                     <Route path={'inversiones'} element={<ArticlesPage key={"inversiones"} tag="inversiones" />} />
                     <Route path={'finanzas'} element={<ArticlesPage key={"finanzas"} tag="finanzas" />} />
                     <Route path={'negocios'} element={<ArticlesPage key={"negocios"} tag="negocios" />} />
                     <Route path={'ecomomia'} element={<ArticlesPage key={"ecomomia"} tag="ecomomia" />} />
                     <Route path={'bancario'} element={<ArticlesPage key={"bancario"} tag="bancario" />} />
+                    <Route path={'stocks'} element={<ArticlesPage key={"stocks"} tag="stocks" />} />
                 </Route>
                 <Route path={'post/:id'} element={<ArticlePage />} />
             </Route>
         </Routes>
     );
 }
-
 export default App;

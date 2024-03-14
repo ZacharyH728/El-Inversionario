@@ -1,6 +1,7 @@
 import { useEffect, useState, React } from "react";
 import { useParams } from "react-router-dom"
 import { Link } from "react-router-dom";
+import AdSense from 'react-adsense';
 import parse from 'html-react-parser';
 
 //test
@@ -40,7 +41,11 @@ export default function ArticlePage() {
                     </ul>
                 </div>
                 <div className="ad">
-                    AD
+                    <AdSense.Google
+                        client='ca-pub-1354981245585138'
+                        slot='2832115619'
+                        style={{ width: '100%', height: '21vh', float: 'left' }}
+                    />
                 </div>
             </div>
             <div className="centre">
@@ -145,7 +150,11 @@ export default function ArticlePage() {
             </div>
             <div className="right">
                 <div className="ad">
-                    AD
+                    <AdSense.Google
+                        client='ca-pub-1354981245585138'
+                        slot='2832115619'
+                        style={{ width: '100%', height: '21vh', float: 'left' }}
+                    />
                 </div>
             </div>
         </div>
