@@ -22,7 +22,7 @@ function App() {
                     <Route path={'finanzas'} element={<ArticlesPage key={"finanzas"} tag="finanzas" />} />
                     <Route path={'negocios'} element={<ArticlesPage key={"negocios"} tag="negocios" />} />
                     <Route path={'ecomomia'} element={<ArticlesPage key={"ecomomia"} tag="ecomomia" />} />
-                    <Route path={'bancario'} element={<ArticlesPage key={"bancario"} tag="bancario" />} />
+                    <Route path={'banca'} element={<ArticlesPage key={"banca"} tag="banca" />} />
                     <Route path={'stocks'} element={<ArticlesPage key={"stocks"} tag="stocks" />} />
                     <Route path={'aboutus'} element={<AboutUs />} />
                 </Route>

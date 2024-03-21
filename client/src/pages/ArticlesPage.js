@@ -38,7 +38,7 @@ export default function ArticlesPage({ tag }) {
                     // style={{ width: '100%', height: '100%', float: 'left' }}
                     />
                 </div>
-                <div className="content">
+                <div className="">
                     {!tag ? < ArticleLargeGrid tag="" /> : ""}
                     {!tag && tags ? tags.map(tag => { return < AritcleGrid tag={tag} /> }) : ""}
                     {tag ? < AritcleGrid tag={tag} /> : ""}

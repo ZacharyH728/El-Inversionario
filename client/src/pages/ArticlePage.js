@@ -87,7 +87,7 @@ export default function ArticlePage() {
                 {/* <div className="ad">
                     AD
                 </div> */}
-                <div className="content">
+                <div>
                     {/* TODO fix this shit */}
                     {Array.from(
                         domParser.parseFromString(articleInfo.article.body, "text/html")

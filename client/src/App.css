@@ -5,22 +5,33 @@
     background-color: rgb(254, 249, 242);
 }
 
+a {
+    text-decoration: none;
+}
+
 img {
+    max-width: 100%;
+}
+
+main .content {
+    max-width: 80%;
+    margin-inline: auto;
+}
+
+body.content {
     max-width: 100%;
 }
 
 @media (min-width: 1921px) {
     main {
-        /* padding: 20px; */
-        max-width: 50%;
+        /* max-width: 50%; */
         margin: 0 auto;
     }
 }
 
 @media (max-width: 1920px) {
     main {
-        /* padding: 20px; */
-        max-width: 90%;
+        /* max-width: 90%; */
         margin: 0 auto;
     }
 }
@@ -33,27 +44,28 @@ footer {
     margin-top: 30px;
     background-color: var(--primary-color);
     /* height: 30vh; */
-    padding: 15vh 0;
-    display: flex;
-    /* justify-items    : baseline; */
-    align-items: center;
-    /* align-content: cente r; */
+    padding: 8vh 0;
+    /* display: flex;
+        justify-content: space-around; */
 }
 
 footer nav {
     display: flex;
     justify-content: space-around;
-    align-self: flex-end;
-    align-content: center;
     align-items: center;
 }
 
-footer .link {
-    text-decoration: none;
+footer div.links {
+    justify-content: center;
+}
+
+nav {
+    font-family: "Roboto Slab", system-ui;
 }
 
 footer a {
     color: white;
+    font-size: 1.6rem;
 }
 
 header nav {
@@ -70,7 +82,6 @@ header nav {
 header nav a {
     text-decoration: none;
     color: var(--primary-color);
-    font-family: "Roboto Slab", system-ui;
     font-weight: bold;
     margin: 0 10px 0 0;
     margin-bottom: 12px;
@@ -79,7 +90,6 @@ header nav a {
 .logo {
     display: flex;
     align-items: center;
-    font-family: "Roboto Slab", system-ui;
 }
 
 .logo a {
@@ -212,6 +222,8 @@ div.post.large div.text p {
 
 div.article {
     margin-top: 50px;
+    width: 80%;
+    margin-inline: auto;
     display: grid;
     grid-template-columns: 0.7fr 1.8fr 0.7fr;
     gap: 50px;
@@ -267,7 +279,6 @@ div.info .line {
 }
 
 div.centre .image img {
-    margin-top: 20px;
     border-radius: 15px;
 }
 
