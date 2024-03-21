@@ -1,23 +1,20 @@
 import logo from './logo.svg';
 import './App.css';
+import { EditorSingle, DualEditor, EditorMulti } from './components/editPage';
 
 function App() {
+  const boxes = ["Title", "Summary", "Author(s)", "Editor(s)"]
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='App'>
+      <EditorSingle title="Title" />
+      <EditorSingle title="Summary" />
+      <EditorMulti title="Author(s)" />
+      <EditorMulti title="Editor(s)" />
+      <EditorMulti title="Tag(s)" />
+      <DualEditor title={"Pros"} title2={"Cons"} />
+      <EditorSingle title="Body" />
     </div>
   );
 }
