@@ -2,8 +2,46 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 const Article = require('./models/Article');
+const ImageModel = ('./models/ImageModel')
+const multer = require('multer');
+const crypto = require('crypto')
+const path = require('path')
+const GridFsStorage = require('multer-gridfs-storage').GridFsStorage;
+require('dotenv').config();
 
 app.use(cors())
+
+const url = process.env.DATABASE_URL;
+
+const storage = new GridFsStorage({
+    url: url,
+    file: (req, file) => {
+        return {
+            bucketName: 'Images',
+        };
+        // if (file.mimetype === 'image/*') {
+        //     return {
+        //         bucketName: 'Images'
+        //     };
+        // } else {
+        //     return null;
+        // }
+    }
+})
+
+const upload = multer({ storage });
+
+app.post('/submitArticle', upload.fields([{ name: 'Images', maxCount: 100 }]), (req, res) => {
+    // app.post('/submitArticle', (req, res) => {
+    // app.post('/submitArticle', (req, res) => {
+    // app.post('/submitArticle', (req, res) => {
+    //console.log(req);
+    console.log(req.file);
+    console.log(req.body);
+    // console.log(req.files);
+    res.status(200).send();
+    // res.json({file: req.file});
+});
 
 app.get('/test', (req, res) => {
     res.json('test ok');
@@ -54,3 +92,4 @@ app.get("/tags", async (req, res) => {
 })
 
 app.listen(4000);
+module.exports = express.Router();

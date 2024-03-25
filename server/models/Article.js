@@ -2,7 +2,9 @@ const mongoose = require('mongoose');
 
 const { Schema, model } = mongoose;
 
-const uri = "mongodb+srv://ZacharyH728:c3yy58HKaKJObnd7@cluster0.mh3o3ze.mongodb.net/El_Inversionario?retryWrites=true&w=majority";
+require('dotenv').config();
+
+const uri = process.env.DATABASE_URL;
 
 mongoose.connect(
     uri,
@@ -51,4 +53,4 @@ function run() {
     //pass
 }
 
-module.exports = mongoose.model("Article", ArticleSchema, "articles")
+module.exports = mongoose.model("Article", ArticleSchema, "Articles")

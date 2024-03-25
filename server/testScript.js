@@ -1,7 +1,8 @@
 const mongoose = require("mongoose");
 const Article = require("./models/Article");
+require("dotenv").config();
 
-const uri = "mongodb+srv://ZacharyH728:c3yy58HKaKJObnd7@cluster0.mh3o3ze.mongodb.net/El_Inversionario?retryWrites=true&w=majority";
+const uri = process.env.DATABASE_URL
 
 mongoose.connect(
     uri,
