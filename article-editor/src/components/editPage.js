@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 
-export function EditorMulti({ title }) {
+export function EditorMulti({ title, onFormChange }) {
     const [inputs, setInputs] = useState([""])
 
     const handleInputAdd = () => {
@@ -13,8 +13,8 @@ export function EditorMulti({ title }) {
         const newInputs = [...inputs];
         newInputs[index] = event;
         setInputs(newInputs);
+        onFormChange(event, index, title)
     }
-
 
 
     return (
@@ -39,20 +39,63 @@ export function EditorMulti({ title }) {
     )
 }
 
-export function EditorSingle({ title }) {
+export function EditorSingle({ title, onFormChange }) {
     const [value, setValue] = useState('');
+
+    const handleInputChange = (event) => {
+        setValue(event);
+        onFormChange(event, null, title);
+    }
 
     return (
         <div className='formSection'>
             <h1>{title}</h1>
             <div className='textBox'>
-                <ReactQuill key={title} className="editor" theme="snow" value={value} onChange={setValue} />
+                <ReactQuill key={title} className="editor" theme="snow" value={value} onChange={event => handleInputChange(event)} />
             </div>
         </div>
     )
 }
 
-export function DualEditor({ title, title2 }) {
+export function ImageSelect({ title, onFormChange }) {
+    const [images, setImages] = useState([{ 'image': "", 'name': "" }]);
+
+    const handleNameChange = (event, index) => {
+        event.preventDefault();
+        const newImages = [...images];
+        newImages[index].name = event.target.value;
+        setImages(newImages);
+    }
+
+    const handleImageChange = (event, index) => {
+        event.preventDefault();
+        // console.log(event.target.files[0])
+        const newImages = [...images];
+        newImages[index].image = event.target.files[0];
+        setImages(newImages);
+    }
+
+    const handleInputAdd = () => {
+        setImages([...images, { 'image': "", 'name': "" }])
+    }
+
+    return (
+        <div className='formSection'>
+            <h2>{title}</h2>
+            {images.map((image, index) => {
+                return (
+                    <form key={index} onSubmit={event => event.preventDefault()} onChange={event => { event.preventDefault(); onFormChange(images, null, title) }}>
+                        <input type='file' accept='image/*' onChange={event => handleImageChange(event, index)} />
+                        <input type='text' value={image.name} onChange={event => handleNameChange(event, index)} />
+                    </form>
+                )
+            })}
+            <button onClick={handleInputAdd}>+</button>
+        </div>
+    )
+}
+
+export function DualEditor({ title, title2, onFormChange }) {
     const [inputs1, setInputs1] = useState([""])
     const [inputs2, setInputs2] = useState([""])
 
@@ -67,11 +110,13 @@ export function DualEditor({ title, title2 }) {
         const newInputs = [...inputs1];
         newInputs[index] = event;
         setInputs1(newInputs);
+        onFormChange(event, index, title);
     }
     const handleInput2Change = (event, index) => {
         const newInputs = [...inputs2];
         newInputs[index] = event;
         setInputs2(newInputs);
+        onFormChange(event, index, title2);
     }
 
 
