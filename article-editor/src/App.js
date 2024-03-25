@@ -42,17 +42,34 @@ function App() {
 
     const data = new FormData();
 
-    data.append('data', JSON.stringify(formData));
-    for (let i = 0; i < formData["Images"].length; i++) {
-      const file = formData["Images"][i]
-      data.append(file.name, file.image);
+    for (let dataPiece in formData) {
+      if (dataPiece !== "Images") {
+        if (Array.isArray(formData[dataPiece])) {
+          for (let element of formData[dataPiece]) {
+            data.append(dataPiece, element);
+          }
+        } else {
+          data.append(dataPiece, formData[dataPiece]);
+        }
+      }
     }
 
-    const response = await fetch('/submitArticle', {
+    if (formData["Images"]) {
+      for (let i = 0; i < formData["Images"].length; i++) {
+        const file = formData["Images"][i]
+        data.append('Images', file.image);
+      }
+    }
+
+    for (let pair of data.entries()) {
+      console.log(pair)
+    }
+
+    const response = await fetch('http://localhost:4000/submitArticle', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
+      // headers: {
+      //   'Content-Type': 'application/json'
+      // },
       body: data
     });
     if (!response.ok) {
@@ -73,7 +90,7 @@ function App() {
       <DualEditor title={"Pros"} title2={"Cons"} onFormChange={handleFormChange} />
       <EditorSingle title="Body" onFormChange={handleFormChange} />
       <ImageSelect title="Images" onFormChange={handleFormChange} />
-      <button onClick={postData}></button>
+      <button className="submit" onClick={postData}></button>
     </div>
   );
 }

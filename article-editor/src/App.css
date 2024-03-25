@@ -24,6 +24,12 @@ button {
     align-self: flex-end;
 }
 
+.submit {
+    width: 200px;
+    height: 30px;
+    margin: 10px 0;
+}
+
 .textBox {
     height: fit-content;
     display: flex;
