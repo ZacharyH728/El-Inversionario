@@ -40,6 +40,11 @@ app.post('/submitArticle', upload.fields([{ name: 'Images', maxCount: 100 }]), (
     console.log(req.body);
     // console.log(req.files);
     res.status(200).send();
+
+    // Article.create({
+    //     authors:
+    // })
+
     // res.json({file: req.file});
 });
 
