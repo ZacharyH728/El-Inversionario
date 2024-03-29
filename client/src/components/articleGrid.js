@@ -2,7 +2,7 @@ import ArticleIcon from "../components/articleIcon";
 import { useEffect, useState } from "react"
 
 
-export default function AritcleGrid({ header, tag }) {
+export default function AritcleGrid({ header, tag, limit }) {
     const [articles, setArticles] = useState([]);
 
     tag = tag ? tag : ""
@@ -24,7 +24,7 @@ export default function AritcleGrid({ header, tag }) {
                 <h1>{!tag ? "Latest Articles" : tag.charAt(0).toUpperCase() + tag.slice(1)}</h1>
             </div>
             <div className="posts small">
-                {articles.length > 0 && articles.map(article => {
+                {articles.length > 0 && articles.slice(0, limit).map((article, index) => {
                     return <ArticleIcon key={article._id} {...article} />;
                 })}
             </div>

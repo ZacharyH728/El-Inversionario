@@ -40,8 +40,8 @@ export default function ArticlesPage({ tag }) {
                 </div>
                 <div className="">
                     {!tag ? < ArticleLargeGrid tag="" /> : ""}
-                    {!tag && tags ? tags.map(tag => { return < AritcleGrid tag={tag} /> }) : ""}
-                    {tag ? < AritcleGrid tag={tag} /> : ""}
+                    {!tag && tags ? tags.map(tag => { return < AritcleGrid tag={tag} limit={10} /> }) : ""}
+                    {tag ? < AritcleGrid tag={tag} limit={10} /> : ""}
                 </div>
             </div>
         </div>

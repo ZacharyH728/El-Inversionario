@@ -54,6 +54,11 @@ function App() {
       }
     }
 
+    for (let i = 0; i < formData["Images"].length; i++) {
+      const file = formData["Images"][i]
+      data.append('Files', JSON.stringify({ imageName: file.name, fileName: file.image.name }));
+    }
+
     if (formData["Images"]) {
       for (let i = 0; i < formData["Images"].length; i++) {
         const file = formData["Images"][i]
@@ -67,28 +72,25 @@ function App() {
 
     const response = await fetch('http://localhost:4000/submitArticle', {
       method: 'POST',
-      // headers: {
-      //   'Content-Type': 'application/json'
-      // },
       body: data
     });
     if (!response.ok) {
       throw new Error('HTTP error ' + response.status);
     }
 
-    const jsonData = await response.json();
+    // const jsonData = await response.json();
   }
 
 
   return (
     <div className='App'>
-      <EditorSingle title="Title" onFormChange={handleFormChange} />
-      <EditorSingle title="Summary" onFormChange={handleFormChange} />
-      <EditorMulti title="Author(s)" onFormChange={handleFormChange} />
-      <EditorMulti title="Editor(s)" onFormChange={handleFormChange} />
-      <EditorMulti title="Tag(s)" onFormChange={handleFormChange} />
-      <DualEditor title={"Pros"} title2={"Cons"} onFormChange={handleFormChange} />
-      <EditorSingle title="Body" onFormChange={handleFormChange} />
+      <EditorSingle title="Title" onFormChange={handleFormChange} isRich={false} />
+      <EditorSingle title="Summary" onFormChange={handleFormChange} isRich={true} />
+      <EditorMulti title="Author(s)" onFormChange={handleFormChange} isRich={false} />
+      <EditorMulti title="Editor(s)" onFormChange={handleFormChange} isRich={false} />
+      <EditorMulti title="Tag(s)" onFormChange={handleFormChange} isRich={false} />
+      <DualEditor title={"Pros"} title2={"Cons"} onFormChange={handleFormChange} isRich={true} />
+      <EditorSingle title="Body" onFormChange={handleFormChange} isRich={true} />
       <ImageSelect title="Images" onFormChange={handleFormChange} />
       <button className="submit" onClick={postData}></button>
     </div>

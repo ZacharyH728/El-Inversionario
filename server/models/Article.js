@@ -38,7 +38,7 @@ const ArticleSchema = new mongoose.Schema({
         cons: [String],
         tags: [String],
         photos: [{
-            image: Buffer,
+            filename: String,
             name: String,
         }],
         refrences: [{

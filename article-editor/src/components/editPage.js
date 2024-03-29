@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 
-export function EditorMulti({ title, onFormChange }) {
+export function EditorMulti({ title, onFormChange, isRich }) {
     const [inputs, setInputs] = useState([""])
 
     const handleInputAdd = () => {
@@ -11,9 +11,9 @@ export function EditorMulti({ title, onFormChange }) {
 
     const handleInputChange = (event, index) => {
         const newInputs = [...inputs];
-        newInputs[index] = event;
+        newInputs[index] = isRich ? event : event.target.value;
         setInputs(newInputs);
-        onFormChange(event, index, title)
+        onFormChange(isRich ? event : event.target.value, index, title)
     }
 
 
@@ -26,7 +26,7 @@ export function EditorMulti({ title, onFormChange }) {
 
                 {inputs.map((input, index) => {
                     return (
-                        <ReactQuill key={index} className="editor" theme="snow" value={input} onChange={event => handleInputChange(event, index)} />
+                        isRich ? <ReactQuill key={index} className="editor" theme="snow" value={input} onChange={event => handleInputChange(event, index)} /> : <input type='text' key={index} className="editor" value={input} onChange={event => handleInputChange(event, index)} ></input>
                     )
                 })}
                 <button onClick={handleInputAdd}>+</button>
@@ -35,29 +35,29 @@ export function EditorMulti({ title, onFormChange }) {
                     <ReactQuill key={i} className="editor" theme="snow" value={value} onChange={setValue} />
                 })} */}
             </div>
-        </div>
+        </div >
     )
 }
 
-export function EditorSingle({ title, onFormChange }) {
+export function EditorSingle({ title, onFormChange, isRich }) {
     const [value, setValue] = useState('');
 
     const handleInputChange = (event) => {
-        setValue(event);
-        onFormChange(event, null, title);
+        setValue(isRich ? event : event.target.value);
+        onFormChange(isRich ? event : event.target.value, null, title);
     }
 
     return (
         <div className='formSection'>
             <h1>{title}</h1>
             <div className='textBox'>
-                <ReactQuill key={title} className="editor" theme="snow" value={value} onChange={event => handleInputChange(event)} />
+                {isRich ? <ReactQuill key={title} className="editor" theme="snow" value={value} onChange={event => handleInputChange(event)} /> : <input type='text' key={title} className="editor" value={value} onChange={event => handleInputChange(event)}></input>}
             </div>
         </div>
     )
 }
 
-export function ImageSelect({ title, onFormChange }) {
+export function ImageSelect({ title, onFormChange, isRich }) {
     const [images, setImages] = useState([{ 'image': "", 'name': "" }]);
 
     const handleNameChange = (event, index) => {
@@ -95,7 +95,7 @@ export function ImageSelect({ title, onFormChange }) {
     )
 }
 
-export function DualEditor({ title, title2, onFormChange }) {
+export function DualEditor({ title, title2, onFormChange, isRich }) {
     const [inputs1, setInputs1] = useState([""])
     const [inputs2, setInputs2] = useState([""])
 
@@ -108,15 +108,15 @@ export function DualEditor({ title, title2, onFormChange }) {
 
     const handleInput1Change = (event, index) => {
         const newInputs = [...inputs1];
-        newInputs[index] = event;
+        newInputs[index] = isRich ? event : event.target.value;
         setInputs1(newInputs);
-        onFormChange(event, index, title);
+        onFormChange(isRich ? event : event.target.value, index, title);
     }
     const handleInput2Change = (event, index) => {
         const newInputs = [...inputs2];
-        newInputs[index] = event;
+        newInputs[index] = isRich ? event : event.target.value;
         setInputs2(newInputs);
-        onFormChange(event, index, title2);
+        onFormChange(isRich ? event : event.target.value, index, title2);
     }
 
 
@@ -127,9 +127,7 @@ export function DualEditor({ title, title2, onFormChange }) {
                 <h1>{title}</h1>
                 <div className='textBox'>
                     {inputs1.map((input1, index) => {
-                        return (
-                            <ReactQuill key={index} className="editor" theme="snow" value={input1} onChange={event => handleInput1Change(event, index)} />
-                        )
+                        return (isRich ? <ReactQuill key={index} className="editor" theme="snow" value={input1} onChange={event => handleInput1Change(event, index)} /> : <input type='text' key={index} className='editor' value={input1} onChange={event => handleInput1Change(event, index)}></input>);
                     })}
                     {/* <ReactQuill className="editor" theme="snow" value={value} onChange={event => handleInput1Change(event, index)} /> */}
                     <button onClick={handleInput1Add}>+</button>
@@ -139,9 +137,7 @@ export function DualEditor({ title, title2, onFormChange }) {
                 <h1>{title2}</h1>
                 <div className='textBox'>
                     {inputs2.map((input2, index) => {
-                        return (
-                            <ReactQuill key={index} className="editor" theme="snow" value={input2} onChange={event => handleInput2Change(event, index)} />
-                        )
+                        return (isRich ? <ReactQuill key={index} className="editor" theme="snow" value={input2} onChange={event => handleInput2Change(event, index)} /> : <input type='text' key={index} className='editor' value={input2} onChange={event => handleInput2Change(event, index)}></input>);
                     })}
                     {/* <ReactQuill className="editor" theme="snow" value={value} onChange={event => handleInput2Change(event, index)} /> */}
                     <button onClick={handleInput2Add}>+</button>
