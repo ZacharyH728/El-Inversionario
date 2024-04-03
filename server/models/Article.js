@@ -6,11 +6,11 @@ require('dotenv').config();
 
 const uri = process.env.DATABASE_URL;
 
-mongoose.connect(
-    uri,
-)
-    .then(run())
-    .catch(e => console.log(e.message));
+// mongoose.connect(
+//     uri,
+// )
+//     .then(run())
+//     .catch(e => console.log(e.message));
 
 
 const ArticleSchema = new mongoose.Schema({
@@ -38,7 +38,7 @@ const ArticleSchema = new mongoose.Schema({
         cons: [String],
         tags: [String],
         photos: [{
-            filename: String,
+            url: String,
             name: String,
         }],
         refrences: [{
