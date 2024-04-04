@@ -58,7 +58,7 @@ export function EditorSingle({ title, onFormChange, isRich }) {
 }
 
 export function ImageSelect({ title, onFormChange, isRich }) {
-    const [images, setImages] = useState([{ 'image': "", 'name': "" }]);
+    const [images, setImages] = useState([{ 'image': "", 'name': "Cover" }]);
 
     const handleNameChange = (event, index) => {
         event.preventDefault();

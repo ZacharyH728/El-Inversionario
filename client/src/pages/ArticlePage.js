@@ -8,8 +8,17 @@ import parse from 'html-react-parser';
 
 export default function ArticlePage() {
     const [articleInfo, setArticleInfo] = useState(null);
+    const [images, setImages] = useState({});
     const { id } = useParams();
     const domParser = new DOMParser();
+
+    function arrayBufferToBase64(buffer) {
+        var binary = '';
+        var bytes = [].slice.call(new Uint8Array(buffer));
+        bytes.forEach((b) => binary += String.fromCharCode(b));
+        return window.btoa(binary);
+    };
+
     useEffect(() => {
         fetch(`http://localhost:4000/article/${id ? id : 0}`)
             .then(response => {
@@ -18,6 +27,12 @@ export default function ArticlePage() {
                 })
             })
     }, []);
+
+    useEffect(() => {
+        if (articleInfo) {
+            setImages(articleInfo.article.photos)
+        }
+    })
 
     if (!articleInfo) {
         return ""
@@ -82,7 +97,7 @@ export default function ArticlePage() {
                     </div>
                 </div>
                 <div className="image">
-                    <img src="https://www.investopedia.com/thmb/-pHVGUrLA2OzieX3XXDcz8fSAn0=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/GettyImages-1246026356-22220ea971dc4eff8d5fe628cb9cba98.jpg"></img>
+                    <img src={images.length > 0 && images.filter(image => image.name.toUpperCase() === 'TESTIMAGE')[0]['url']}></img>
                 </div>
                 {/* <div className="ad">
                     AD

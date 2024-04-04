@@ -17,6 +17,7 @@ const accessKeyId = process.env.ACCESS_KEY_ID;
 const secretAccessKey = process.env.SECRET_ACCESS_KEY;
 const bucket = 'el.inversionario.images';
 const region = 'us-west-1'
+const cloudFront = 'https://d2po7ns1qym4os.cloudfront.net/'
 
 
 mongoose.connect(url)
@@ -100,11 +101,12 @@ app.post('/submitArticle', upload.array('Images'), async (req, res) => {
     console.log(req.body['Files'])
 
     for (let uploadedImage of req.files) {
+        ``
         const postedImage = findObjectByKeyValue(req.body['Files'], 'fileName', uploadedImage.originalname)
         console.log("posted", postedImage)
         console.log("uploaded", uploadedImage)
-        cleanedPhotos.push({ url: uploadedImage.location, name: postedImage.imageName })
-        // cleanedPhotos.push({ url: 'https://s3.' + region + '.amazonaws.com/' + bucket + '/' + req.body.['originalname'].replace(' ', '+'), name: postedImage.imageName })
+        // cleanedPhotos.push({ url: uploadedImage.location, name: postedImage.imageName })
+        cleanedPhotos.push({ url: cloudFront + uploadedImage['originalname'].replace(' ', '+'), name: postedImage.imageName })
     }
 
 
