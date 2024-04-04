@@ -56,34 +56,7 @@ const db = mongoose.connection;
 // console.log(mongoose.connection.db.listCollections())
 
 app.post('/submitArticle', upload.array('Images'), async (req, res) => {
-    //console.log(req);
-    // console.log("files", req.files.Images);
-    // console.log(req.body);
-    // for (let key in req.body) {
-    //     console.log(key)
-    // }
-
-    // console.log(req.body['Files']);
     res.status(200).send();
-    // console.log(req.body['Tag(s)'])
-
-    // for (let photo of req.body.Images) {
-
-    //     // console.log(JSON.parse(photo))
-
-    //     // const imageInput = {
-    //     //     "Body": imageToUpload,
-    //     //     "Bucket": el.inversionario.images,
-    //     //     "Key": imageName ,
-    //     //     "ServersideEncryption": ,
-    //     // }
-
-    //     // const s3Command = new PutObjectCommand(imageInput);
-
-    //     // const s3Reponse = await s3Client.send(s3Command);
-
-    //     // console.log(s3Reponse);
-    // }
 
     const cleanedPhotos = [];
 
@@ -130,7 +103,6 @@ app.post('/submitArticle', upload.array('Images'), async (req, res) => {
 
     console.log(article.article);
 
-    // res.json({file: req.file});
 });
 
 app.get('/test', (req, res) => {
@@ -194,12 +166,12 @@ app.get("/article/:id", async (req, res) => {
 })
 
 app.get("/tags", async (req, res) => {
-    // const tags = await Article.distinct('article.tags')
-
     let results = new Set();
 
     for (let element of (await Article.find().select('article.tags -_id'))) {
-        results.add(element.article.tags[0]);
+        for (let tag of element.article.tags) {
+            results.add(tag);
+        }
     }
     res.json([...results]);
 })
