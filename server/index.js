@@ -7,6 +7,8 @@ const multer = require('multer');
 const { default: mongoose } = require('mongoose');
 const { S3Client, PutObjectCommand } = require("@aws-sdk/client-s3")
 const multerS3 = require('multer-s3')
+const fs = require('fs');
+
 
 require('dotenv').config();
 
@@ -20,7 +22,14 @@ const region = 'us-west-1'
 const cloudFront = 'https://d2po7ns1qym4os.cloudfront.net/'
 
 
-mongoose.connect(url)
+
+console.log(url)
+mongoose.connect(url, {
+    // tlsCAFile: './global-bundle.pem'
+    // useNewUrlParser: true,
+    tls: true,
+    tlsCAFile: './global-bundle.pem'
+})
     .catch(e => console.log(e.message));
 
 const s3Client = new S3Client({
@@ -46,7 +55,7 @@ const upload = multer({
     })
 });
 
-const db = mongoose.connection;
+// const db = mongoose.connection;
 
 // db.on("open", async () => {
 //     console.log(await db.db.listCollections().toArray());
@@ -62,7 +71,7 @@ app.post('/submitArticle', upload.array('Images'), async (req, res) => {
 
     function findObjectByKeyValue(array, key, value) {
         for (var i = 0; i < array.length; i++) {
-            console.log(array[i][key])
+            console.log("looking at ", array[i][key])
             if (JSON.parse(array[i])[key] === value) {
                 return JSON.parse(array[i]);
             }
@@ -70,11 +79,11 @@ app.post('/submitArticle', upload.array('Images'), async (req, res) => {
         return null;
     }
 
-    // console.log(Object.keys(req.body))
+    console.log(req.body)
+    console.log(req.files)
     console.log(req.body['Files'])
 
     for (let uploadedImage of req.files) {
-        ``
         const postedImage = findObjectByKeyValue(req.body['Files'], 'fileName', uploadedImage.originalname)
         console.log("posted", postedImage)
         console.log("uploaded", uploadedImage)
@@ -97,11 +106,11 @@ app.post('/submitArticle', upload.array('Images'), async (req, res) => {
             photos: cleanedPhotos
 
         }
-    })
+    }).catch(e => console.log(e.message))
 
     console.log("\n");
 
-    console.log(article.article);
+    // console.log(article.article);
 
 });
 
