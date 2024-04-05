@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "paths": {
+    "/items": {
+      "name": "/items",
+      "lambdaFunction": "elinversionarioe9663117",
+      "permissions": {
+        "setting": "open"
+      }
+    },
+    "/server": {
+      "name": "/server",
+      "lambdaFunction": "elinversionarioe9663117",
+      "permissions": {
+        "setting": "open"
+      }
+    }
+  }
+}
