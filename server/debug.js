@@ -1,4 +1,5 @@
-import { MongoClient } from "mongodb";
+var MongoClient = require('mongodb').MongoClient;
+
 
 const url = "";
 
