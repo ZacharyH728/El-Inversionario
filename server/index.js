@@ -15,15 +15,13 @@ require('dotenv').config();
 
 app.use(cors())
 
-const url = process.env.DATABASE_URL;
+const url = process.env.DATABASE_URI;
 const accessKeyId = process.env.ACCESS_KEY_ID;
 const secretAccessKey = process.env.SECRET_ACCESS_KEY;
 const bucket = 'el.inversionario.images';
 const region = 'us-west-1'
 const cloudFront = 'https://d2po7ns1qym4os.cloudfront.net/'
 const client = new MongoClient(url);
-
-
 
 console.log(url)
 
@@ -74,9 +72,9 @@ async function main(){
             return null;
         }
     
-        console.log(req.body)
-        console.log(req.files)
-        console.log(req.body['Files'])
+        console.log("body", req.body)
+        console.log("files", req.files)
+        console.log("body files", req.body['Files'])
     
         for (let uploadedImage of req.files) {
             const postedImage = findObjectByKeyValue(req.body['Files'], 'fileName', uploadedImage.originalname)
@@ -184,7 +182,7 @@ async function main(){
         }
     
     })
-    
+
     //TODO Implement into mongodb
     // app.get("/tags", async (req, res) => {
     //     let results = new Set();
@@ -204,6 +202,7 @@ async function main(){
 }
 
 main()
-    .then(console.log)
     .catch(console.error)
     .finally(() => client.close())
+
+
