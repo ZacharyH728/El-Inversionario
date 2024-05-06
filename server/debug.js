@@ -3,7 +3,7 @@ var MongoClient = require('mongodb').MongoClient;
 
 const url = "";
 
-export async function connectToCluster(uri) {
+async function connectToCluster(uri) {
   let mongoClient;
 
   try {
@@ -19,4 +19,4 @@ export async function connectToCluster(uri) {
   }
 }
 
-mongoClient = await connectToCluster(urL);
+await connectToCluster(urL);
