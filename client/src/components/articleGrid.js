@@ -10,7 +10,7 @@ export default function AritcleGrid({ header, tag, limit }) {
 
 
     useEffect(() => {
-        fetch(`3.144.124.221:4000/${tag}`)
+        fetch(`https://3.144.124.221:4000/${tag}`)
             .then(response => {
                 response.json().then(articles => {
                     setArticles(articles)

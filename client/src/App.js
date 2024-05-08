@@ -17,7 +17,7 @@ function App() {
     const [tags, setTags] = useState([]);
 
     useEffect(() => {
-        fetch(`3.144.124.221:4000/tags`)
+        fetch(`https://3.144.124.221:4000/tags`)
             .then(response => {
                 response.json().then(articleInfo => {
                     setTags(articleInfo);
