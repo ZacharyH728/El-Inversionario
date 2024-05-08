@@ -1,7 +1,5 @@
 import ArticleLargeIcon from "../components/articleLargeIcon";
 import { useEffect, useState } from "react"
-import 'dotenv/config';
-
 
 export default function AritcleLargeGrid({ tag }) {
     const [articles, setArticles] = useState([]);
