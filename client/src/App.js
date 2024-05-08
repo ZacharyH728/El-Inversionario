@@ -12,11 +12,14 @@ import Layout from './components/layout.js';
 import AboutUs from './pages/AboutUs.js';
 import { useState, useEffect } from 'react';
 
+import 'dotenv/config';
+
+
 function App() {
     const [tags, setTags] = useState([]);
 
     useEffect(() => {
-        fetch(`http://localhost:4000/tags`)
+        fetch(`${process.env.BACKEND_URL}/tags`)
             .then(response => {
                 response.json().then(articleInfo => {
                     setTags(articleInfo);

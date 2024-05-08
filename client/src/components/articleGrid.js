@@ -1,5 +1,7 @@
 import ArticleIcon from "../components/articleIcon";
 import { useEffect, useState } from "react"
+import 'dotenv/config';
+
 
 
 export default function AritcleGrid({ header, tag, limit }) {
@@ -9,7 +11,7 @@ export default function AritcleGrid({ header, tag, limit }) {
 
 
     useEffect(() => {
-        fetch(`http://localhost:4000/page/${tag}`)
+        fetch(`${process.env.DATABASE_URL}/${tag}`)
             .then(response => {
                 response.json().then(articles => {
                     setArticles(articles)
