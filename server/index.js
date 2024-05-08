@@ -1,17 +1,24 @@
-const express = require('express');
+//const express = require('express');
+import express from 'express';
 const app = express();
-const cors = require('cors');
+//const cors = require('cors');
+import cors from 'cors';
 // const Article = require('./models/Article');
 // const ImageModel = require('./models/ImageModel')
-const multer = require('multer');
+//const multer = require('multer');
+import multer from 'multer';
 // const { default: mongoose } = require('mongoose');
-const {MongoClient} = require('mongodb');
-const { S3Client, PutObjectCommand } = require("@aws-sdk/client-s3")
-const multerS3 = require('multer-s3')
-const fs = require('fs');
-
-
-require('dotenv').config();
+//const {MongoClient} = require('mongodb');
+//const { S3Client, PutObjectCommand } = require("@aws-sdk/client-s3")
+//const multerS3 = require('multer-s3')
+//const fs = require('fs');
+import {MongoClient} from 'mongodb';
+import {S3Client, PutObjectCommand} from "@aws-sdk/client-s3";
+import multerS3 from 'multer-s3';
+import fs from 'fs';
+import dotenv from 'dotenv';
+dotenv.config();
+//require('dotenv').config();
 
 app.use(cors())
 
@@ -23,6 +30,7 @@ const region = 'us-west-1'
 const cloudFront = 'https://d2po7ns1qym4os.cloudfront.net/'
 const client = new MongoClient(url);
 
+
 console.log(url)
 
 async function main(){
@@ -30,8 +38,8 @@ async function main(){
         console.log("Connected successfully to server")
     })
 
-    const db = client.db();
-    const articleCollections = db.collection("Articles"); 
+    const db = client.db('El-Inversionario');
+    const articleCollections = db.collection("Article"); 
     const imageCollections = db.collection("imageModel");
 
     const s3Client = new S3Client({
@@ -42,6 +50,7 @@ async function main(){
         }
     
     })
+
     
     const upload = multer({
         storage: multerS3({
@@ -63,8 +72,9 @@ async function main(){
         const cleanedPhotos = [];
     
         function findObjectByKeyValue(array, key, value) {
+            console.log("array", array, "key", key, "value", value)
             for (var i = 0; i < array.length; i++) {
-                console.log("looking at ", array[i][key])
+                console.log("looking at ", array[i])
                 if (JSON.parse(array[i])[key] === value) {
                     return JSON.parse(array[i]);
                 }
@@ -77,7 +87,7 @@ async function main(){
         console.log("body files", req.body['Files'])
     
         for (let uploadedImage of req.files) {
-            const postedImage = findObjectByKeyValue(req.body['Files'], 'fileName', uploadedImage.originalname)
+            const postedImage = findObjectByKeyValue([req.body['Files']], 'fileName', uploadedImage.originalname)
             console.log("posted", postedImage)
             console.log("uploaded", uploadedImage)
             // cleanedPhotos.push({ url: uploadedImage.location, name: postedImage.imageName })
@@ -85,6 +95,7 @@ async function main(){
         }
     
         //TODO find db name
+        //console.log(await articleCollections.find({}).toArray())
         await articleCollections.insertOne(
             {
                 authors: req.body['Author(s)'],
@@ -102,7 +113,7 @@ async function main(){
             }
         ).then(() => {
             "inserted a document"
-        })
+        }).catch((error) => console.error(error));
     
         // const article = await Article.create({
         //     authors: req.body['Author(s)'],
@@ -196,13 +207,10 @@ async function main(){
     // })
     
     app.listen(4000);
-    module.exports = express.Router();
 
 
 }
 
 main()
     .catch(console.error)
-    .finally(() => client.close())
-
-
+    //.finally(() => client.close())
