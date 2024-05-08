@@ -9,7 +9,7 @@ export default function AritcleLargeGrid({ tag }) {
     tag = tag ? tag : ""
 
     useEffect(() => {
-        fetch(`${process.env.DATABASE_URL}/${tag}`)
+        fetch(`3.144.124.221:4000/${tag}`)
             .then(response => {
                 response.json().then(articles => {
                     setArticles(articles)
