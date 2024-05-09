@@ -11,7 +11,7 @@ export default function ArticlesPage({ tag }) {
     // tag = tag ? tag : ""
 
     useEffect(() => {
-        fetch(`http://3.144.124.221:4000/tags`)
+        fetch(`https://3.144.124.221:4000/tags`)
             .then(response => {
                 response.json().then(tags => {
                     setTags(tags)

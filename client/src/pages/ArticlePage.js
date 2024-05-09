@@ -20,7 +20,7 @@ export default function ArticlePage() {
     };
 
     useEffect(() => {
-        fetch(`http://3.144.124.221:4000/article/${id ? id : 0}`)
+        fetch(`https://3.144.124.221:4000/article/${id ? id : 0}`)
             .then(response => {
                 response.json().then(articleInfo => {
                     setArticleInfo(articleInfo);

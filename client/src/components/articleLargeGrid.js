@@ -7,7 +7,7 @@ export default function AritcleLargeGrid({ tag }) {
     tag = tag ? tag : ""
 
     useEffect(() => {
-        fetch(`http://3.144.124.221:4000/${tag}`)
+        fetch(`https://3.144.124.221:4000/${tag}`)
             .then(response => {
                 response.json().then(articles => {
                     setArticles(articles)
