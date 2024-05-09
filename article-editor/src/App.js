@@ -70,7 +70,7 @@ function App() {
       console.log(pair)
     }
 
-    const response = await fetch('http://3.144.124.221:4000/submitArticle', {
+    const response = await fetch('https://3.144.124.221:4000/submitArticle', {
       method: 'POST',
       body: data
     });

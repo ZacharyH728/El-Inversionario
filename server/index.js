@@ -1,25 +1,16 @@
-//const express = require('express');
 import express from 'express';
 const app = express();
-//const cors = require('cors');
 import cors from 'cors';
-// const Article = require('./models/Article');
-// const ImageModel = require('./models/ImageModel')
-//const multer = require('multer');
 import multer from 'multer';
-// const { default: mongoose } = require('mongoose');
-//const {MongoClient} = require('mongodb');
-//const { S3Client, PutObjectCommand } = require("@aws-sdk/client-s3")
-//const multerS3 = require('multer-s3')
-//const fs = require('fs');
 import {MongoClient} from 'mongodb';
 import {S3Client, PutObjectCommand} from "@aws-sdk/client-s3";
 import multerS3 from 'multer-s3';
 import fs from 'fs';
 import https from 'https';
 import dotenv from 'dotenv';
+import path from 'path';
+import { fileURLToPath } from 'url';
 dotenv.config();
-//require('dotenv').config();
 
 app.use(cors())
 
@@ -31,7 +22,11 @@ const region = 'us-west-1'
 const cloudFront = 'https://d2po7ns1qym4os.cloudfront.net/'
 const client = new MongoClient(url);
 const port = 4000;
-const serverOptions = {};
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const serverOptions = {
+    key: fs.readFileSync(__dirname + '/certs/selfsigned.key'),
+    cert: fs.readFileSync(__dirname + '/certs/selfsigned.crt')
+};
 
 
 console.log(url)
@@ -54,7 +49,6 @@ async function main(){
     
     })
 
-    
     const upload = multer({
         storage: multerS3({
             s3: s3Client,
@@ -93,12 +87,9 @@ async function main(){
             const postedImage = findObjectByKeyValue([req.body['Files']], 'fileName', uploadedImage.originalname)
             console.log("posted", postedImage)
             console.log("uploaded", uploadedImage)
-            // cleanedPhotos.push({ url: uploadedImage.location, name: postedImage.imageName })
             cleanedPhotos.push({ url: cloudFront + uploadedImage['originalname'].replace(' ', '+'), name: postedImage.imageName })
         }
     
-        //TODO find db name
-        //console.log(await articleCollections.find({}).toArray())
         await articleCollections.insertOne(
             {
                 "authors": Array.isArray(req.body['Author(s)']) ? [...req.body['Author(s)']] : [req.body['Author(s)']],
@@ -117,30 +108,15 @@ async function main(){
         ).then(() => {
             "inserted a document"
         }).catch((error) => console.error(error));
-    
-        // const article = await Article.create({
-        //     authors: req.body['Author(s)'],
-        //     editors: req.body['Editor(s)'],
-        //     // reviewers: req.body['Review(s)'],
-        //     article: {
-        //         title: req.body.Title,
-        //         summary: req.body.Summary,
-        //         body: req.body.Body,
-        //         tags: req.body['Tag(s)'],
-        //         pros: req.body['Pros'],
-        //         cons: req.body['Cons'],
-        //         photos: cleanedPhotos
-    
-        //     }
-        // }).catch(e => console.log(e.message))
-        
-        // console.log(article.article);
-    
     });
     
     app.get('/test', (req, res) => {
         res.json('Hello World');
     });
+
+    app.get("/", async (req, res) => {
+        res.redirect("/page")
+    })
     
     app.get("/page", async (req, res) => {
         const articles = await articleCollections.find({}).toArray();
@@ -168,25 +144,11 @@ async function main(){
         res.contentType('json');
     
         res.send(image);
-    
-        // console.log(new ObjectId(image._id.toString()));
-        // image.read();
-    
-        // gfs.createReadStream(new ObjectId(image._id)).pipe(res);
-    
-        // res.contentType(image.contentType);
-        // gfs.createReadStream(image.filename);
-        // gfs.
-        //     gfs.pipe(res);
-        // const image = await ImageModel.find({});
-        // console.log(image);
-        // res.json(image);
     })
     
     
     app.get("/article/:id", async (req, res) => {
         const { id } = req.params;
-        // console.log(await Article.findById(id))
         const article = await articleCollections.findOne({'article.id': id}).toArray();
     
         if (article) {
@@ -197,22 +159,19 @@ async function main(){
     
     })
 
-   // TODO Implement into mongodb
      app.get("/tags", async (req, res) => {
          let results = new Set();
     
          for (let article of await articleCollections.find({}).toArray()) {
-             //console.log(article.article.tags)
              for (let tag of article.article.tags) {
                  results.add(tag);
              }
          }
-         //console.log("tags:", results);
          res.json([...results]);
      })
 
 
-    var server = https.createServer(serverOptionsm, app);
+    var server = https.createServer(serverOptions, app);
     
     server.listen(port, function(){
         console.log(`Running server on ${port}`)
@@ -221,5 +180,3 @@ async function main(){
 
 main()
     .catch(console.error)
-    //.finally(() => client.close())
-
