@@ -16,6 +16,7 @@ import {MongoClient} from 'mongodb';
 import {S3Client, PutObjectCommand} from "@aws-sdk/client-s3";
 import multerS3 from 'multer-s3';
 import fs from 'fs';
+import https from 'https';
 import dotenv from 'dotenv';
 dotenv.config();
 //require('dotenv').config();
@@ -29,6 +30,8 @@ const bucket = 'el.inversionario.images';
 const region = 'us-west-1'
 const cloudFront = 'https://d2po7ns1qym4os.cloudfront.net/'
 const client = new MongoClient(url);
+const port = 4000;
+const serverOptions = {};
 
 
 console.log(url)
@@ -98,17 +101,17 @@ async function main(){
         //console.log(await articleCollections.find({}).toArray())
         await articleCollections.insertOne(
             {
-                authors: req.body['Author(s)'],
-                editors: req.body['Editor(s)'],
+                "authors": Array.isArray(req.body['Author(s)']) ? [...req.body['Author(s)']] : [req.body['Author(s)']],
+                "editors": Array.isArray(req.body['Editor(s)']) ? [...req.body['Editor(s)']] : [req.body['Editor(s)']],
                 // reviewers: req.body['Review(s)'],
-                article: {
-                    title: req.body.Title,
-                    summary: req.body.Summary,
-                    body: req.body.Body,
-                    tags: req.body['Tag(s)'],
-                    pros: req.body['Pros'],
-                    cons: req.body['Cons'],
-                    photos: cleanedPhotos
+                "article": {
+                    "title": req.body.Title,
+                    "summary": req.body.Summary,
+                    "body": req.body.Body,
+                    "tags": Array.isArray(req.body['Tag(s)']) ? [...req.body['Tag(s)']] : [req.body['Tag(s)']],
+                    "pros": Array.isArray(req.body['Pros']) ? [...req.body['Pros']] : [req.body['Pros']],
+                    "cons": Array.isArray(req.body['Cons']) ? [...req.body['Cons']] : [req.body['Cons']],
+                    "photos": cleanedPhotos
                 }
             }
         ).then(() => {
@@ -194,23 +197,29 @@ async function main(){
     
     })
 
-    //TODO Implement into mongodb
-    // app.get("/tags", async (req, res) => {
-    //     let results = new Set();
+   // TODO Implement into mongodb
+     app.get("/tags", async (req, res) => {
+         let results = new Set();
     
-    //     for (let element of (await Article.find().select('article.tags -_id'))) {
-    //         for (let tag of element.article.tags) {
-    //             results.add(tag);
-    //         }
-    //     }
-    //     res.json([...results]);
-    // })
-    
-    app.listen(4000);
+         for (let article of await articleCollections.find({}).toArray()) {
+             //console.log(article.article.tags)
+             for (let tag of article.article.tags) {
+                 results.add(tag);
+             }
+         }
+         //console.log("tags:", results);
+         res.json([...results]);
+     })
 
 
+    var server = https.createServer(serverOptionsm, app);
+    
+    server.listen(port, function(){
+        console.log(`Running server on ${port}`)
+    });
 }
 
 main()
     .catch(console.error)
     //.finally(() => client.close())
+
